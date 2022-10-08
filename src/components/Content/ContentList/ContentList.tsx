@@ -51,7 +51,7 @@ export const ContentList: Function = (
 					/>
 					<Typography.Title level={3} style={{ marginLeft: 14 }}>
 						{item.length >= 1000
-							? `${item.length / 1000} km`
+							? `${(item.length / 1000).toFixed(2)} km`
 							: `${item.length} m`}
 					</Typography.Title>
 				</List.Item>
