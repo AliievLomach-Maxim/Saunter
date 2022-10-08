@@ -39,7 +39,7 @@ export const PathDetails = () => {
 				extra={
 					<Typography.Title level={3}>
 						{pathDetails[0].length >= 1000
-							? `${pathDetails[0].length / 1000} km`
+							? `${(pathDetails[0].length / 1000).toFixed(2)} km`
 							: `${pathDetails[0].length} m`}
 					</Typography.Title>
 				}

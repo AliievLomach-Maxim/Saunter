@@ -128,7 +128,12 @@ export const AddPath = () => {
 										</Col>
 										<Col offset={1}>
 											<Typography.Text>
-												Length: {length ? length : '...'}
+												Length:{' '}
+												{length
+													? length > 1000
+														? `${(length / 1000).toFixed(2)} km`
+														: `${length} m`
+													: '...'}
 											</Typography.Text>
 										</Col>
 									</Row>
