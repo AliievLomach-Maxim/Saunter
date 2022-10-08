@@ -2,6 +2,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { GoogleMap, Polyline, Marker } from '@react-google-maps/api'
 import { defaultTheme } from '../../utils/MapTheme/theme'
 
+interface geoprops {
+	lat: number
+	lng: number
+}
+
 export const Map = ({
 	path,
 	clearMap,
@@ -12,6 +17,7 @@ export const Map = ({
 	const [polylinePaths, setPolylinePaths] = useState<
 		google.maps.LatLng[] | google.maps.LatLngLiteral[] | undefined
 	>()
+	const [geo, setGeo] = useState<geoprops>()
 	useEffect(() => {
 		setPolylinePaths(path)
 	}, [path])
@@ -23,7 +29,16 @@ export const Map = ({
 		}
 	}, [clearMap])
 
-	const center = useMemo(() => ({ lat: 40, lng: -80 }), [])
+	useMemo(() => {
+		const getLocation = (position: GeolocationPosition) => {
+			setGeo({
+				lat: position.coords.latitude,
+				lng: position.coords.longitude,
+			})
+		}
+		navigator.geolocation.getCurrentPosition(getLocation)
+	}, [])
+
 	const defaultOptions = {
 		panControl: true,
 		zoomControl: true,
@@ -69,7 +84,7 @@ export const Map = ({
 	return (
 		<GoogleMap
 			options={defaultOptions}
-			center={center}
+			center={path?.length ? path[0] : geo}
 			zoom={17}
 			mapContainerStyle={{ height: '100%', width: '100%' }}
 			mapContainerClassName='map'
