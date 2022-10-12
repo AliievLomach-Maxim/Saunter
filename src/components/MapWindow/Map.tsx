@@ -30,13 +30,10 @@ export const Map = ({
 	}, [clearMap])
 
 	useMemo(() => {
-		const getLocation = (position: GeolocationPosition) => {
-			setGeo({
-				lat: position.coords.latitude,
-				lng: position.coords.longitude,
-			})
-		}
-		navigator.geolocation.getCurrentPosition(getLocation)
+		setGeo({
+			lat: 50.450001,
+			lng: 30.523333,
+		})
 	}, [])
 
 	const defaultOptions = {
